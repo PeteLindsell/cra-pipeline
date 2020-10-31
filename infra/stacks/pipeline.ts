@@ -56,7 +56,31 @@ export class Pipeline extends CDK.Stack {
           actionName: 'Website',
           project: new CodeBuild.PipelineProject(this, 'BuildWebsite', {
             projectName: 'Website',
-            buildSpec: CodeBuild.BuildSpec.fromSourceFilename('./infra/buildspec.yml'),
+            //buildSpec: CodeBuild.BuildSpec.fromSourceFilename('./infra/buildspec.yml'),
+            buildSpec: CodeBuild.BuildSpec.fromObject({
+              version: '0.2',
+              phases: {
+                install: {
+                  commands: 'yarn install',
+                },
+                build: {
+                  commands: [
+                    'yarn build',
+                  ],
+                },
+              },
+              artifacts: {
+                'base-directory': './build',
+                files: [
+                  '**/*',
+                ],
+              },
+              cache: {
+                paths: [
+                  './node_modules/**/*'
+                ],
+              }
+            }),
           }),
           input: outputSources,
           outputs: [outputWebsite],

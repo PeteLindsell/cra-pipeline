@@ -18,7 +18,7 @@ const App: React.FC = () => (
     <Header>
       <Logo alt="Create React App - Logo" />
       <p>
-        Does this update?
+        Are we still updating?
       </p>
       <Link href="https://reactjs.org">Learn React</Link>
     </Header>
